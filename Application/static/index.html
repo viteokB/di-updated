@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        .topbar {
+            display: flex;
+            background: rgb(240, 240, 240);
+        }
+
+        .dropbtn {
+            color: black;
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 6px 8px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: rgb(213, 213, 213);
+        }
+        
+        .canvas {
+            background: black;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="topbar">
+    <div class="dropdown">
+        <button class="dropbtn">Файл</button>
+        <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">Фракталы</button>
+        <div class="dropdown-content">
+            <a href="#">Дракон</a>
+            <a href="#">Кривая Коха</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">Настройки</button>
+        <div class="dropdown-content">
+            <a href="#">Изображение</a>
+            <a href="#">Палитра</a>
+        </div>
+    </div>
+</nav>
+
+<canvas class="canvas">
+    
+</canvas>
+
+</body>
+</html>
