@@ -1,5 +1,7 @@
 ﻿using System.Net;
+using System.Text.Json;
 using di.Application.Actions;
+using di.Application.Models;
 using di.Infrastructure.Common;
 using di.Infrastructure.UiActions;
 using FractalPainting.Infrastructure.Common;
@@ -16,7 +18,6 @@ internal sealed class App
     public App() : this(
         new IApiAction[]
         {
-            new SaveImageAction(),
             new DragonFractalAction(),
             new KochFractalAction(),
             new UpdateImageSettingsAction(),
@@ -43,10 +44,21 @@ internal sealed class App
         httpListener.Start();
         while (true)
         {
+            var context = await httpListener.GetContextAsync();
+            
+            // Обработка запроса
             try
             {
-                var context = await httpListener.GetContextAsync();
                 var actionKey = $"{context.Request.HttpMethod} {context.Request.Url!.AbsolutePath}";
+
+                if (actionKey == "GET /")
+                {
+                    context.Response.ContentType = "text/html";
+                    await using var fileStream = File.OpenRead(Path.Join(".", "static", "index.html"));
+                    await fileStream.CopyToAsync(context.Response.OutputStream);
+                    continue;
+                }
+
                 if (!routeActions.TryGetValue(actionKey, out var action))
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
@@ -55,11 +67,16 @@ internal sealed class App
                 }
 
                 action.Perform(context.Request.InputStream, context.Response.OutputStream);
-                context.Response.Close();
             }
-            catch (Exception)
+            // Перехват ошибок
+            catch (Exception e)
             {
-                // ignored
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await JsonSerializer.SerializeAsync(context.Response.OutputStream, new ResultError(e.Message));
+            }
+            finally
+            {
+                context.Response.Close();
             }
         }
         // ReSharper disable once FunctionNeverReturns

@@ -20,17 +20,11 @@ namespace di.Application.Actions
 
         public int Perform(Stream inputStream, Stream outputStream)
         {
-            try
-            {
-                var updatedSettings = JsonSerializer.Deserialize<ImageSettings>(inputStream);
-                var settings = imageSettingsProvider.ImageSettings;
-                settings.Height = updatedSettings?.Height ?? settings.Height;
-                settings.Width = updatedSettings?.Width ?? settings.Width;
-            }
-            catch (Exception _)
-            {
-                return (int)HttpStatusCode.InternalServerError;
-            }
+            var updatedSettings = JsonSerializer.Deserialize<ImageSettings>(inputStream);
+            var settings = imageSettingsProvider.ImageSettings;
+            settings.Height = updatedSettings?.Height ?? settings.Height;
+            settings.Width = updatedSettings?.Width ?? settings.Width;
+            JsonSerializer.Serialize(outputStream, settings);
 
             return (int)HttpStatusCode.OK;
         }

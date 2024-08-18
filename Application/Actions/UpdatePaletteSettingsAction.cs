@@ -2,7 +2,6 @@
 using System.Text.Json;
 using di.Infrastructure.Common;
 using di.Infrastructure.UiActions;
-using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
 
 namespace di.Application.Actions
@@ -22,17 +21,11 @@ namespace di.Application.Actions
 
         public int Perform(Stream inputStream, Stream outputStream)
         {
-            try
-            {
-                var updatedPalette = JsonSerializer.Deserialize<Palette>(inputStream);
-                palette.BackgroundColor = updatedPalette?.BackgroundColor ?? palette.BackgroundColor;
-                palette.PrimaryColor = updatedPalette?.PrimaryColor ?? palette.PrimaryColor;
-                palette.SecondaryColor = updatedPalette?.SecondaryColor ?? palette.SecondaryColor;
-            }
-            catch (Exception _)
-            {
-                return (int)HttpStatusCode.InternalServerError;
-            }
+            var updatedPalette = JsonSerializer.Deserialize<Palette>(inputStream);
+            palette.BackgroundColor = updatedPalette?.BackgroundColor ?? palette.BackgroundColor;
+            palette.PrimaryColor = updatedPalette?.PrimaryColor ?? palette.PrimaryColor;
+            palette.SecondaryColor = updatedPalette?.SecondaryColor ?? palette.SecondaryColor;
+            JsonSerializer.Serialize(outputStream, palette);
 
             return (int)HttpStatusCode.OK;
         }

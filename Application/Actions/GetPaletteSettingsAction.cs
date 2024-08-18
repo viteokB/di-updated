@@ -2,7 +2,6 @@
 using System.Text.Json;
 using di.Infrastructure.Common;
 using di.Infrastructure.UiActions;
-using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
 
 namespace di.Application.Actions

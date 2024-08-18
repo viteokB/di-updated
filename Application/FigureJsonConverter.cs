@@ -15,10 +15,7 @@ internal sealed class FigureJsonConverter : JsonConverter<Figure>
     {
         if (value is Line line)
         {
-            writer.WriteRawValue(JsonSerializer.Serialize(line, new JsonSerializerOptions
-            {
-                
-            }));
+            writer.WriteRawValue(JsonSerializer.Serialize(line));
             return;
         }
 

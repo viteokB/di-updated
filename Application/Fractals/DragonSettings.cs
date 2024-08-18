@@ -1,6 +1,4 @@
-using System;
-
-namespace FractalPainting.App.Fractals
+namespace di.Application.Fractals
 {
     public class DragonSettings
     {

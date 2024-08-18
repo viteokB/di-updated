@@ -10,17 +10,11 @@ namespace di.Application.Actions
 {
     public class KochFractalAction : IApiAction, INeed<Palette>, INeed<IImageSettingsProvider>
     {
-        private readonly JsonSerializerOptions jsonSerializerOptions;
+        private readonly JsonSerializerOptions jsonSerializerOptions =
+            new() { Converters = { new FigureJsonConverter() } };
         private Palette palette;
         private IImageSettingsProvider imageSettingsProvider;
 
-        public KochFractalAction()
-        {
-            jsonSerializerOptions = new JsonSerializerOptions
-            {
-                Converters = { new FigureJsonConverter() }
-            };
-        }
 
         public void SetDependency(Palette dependency)
         {
@@ -28,8 +22,8 @@ namespace di.Application.Actions
         }
 
         public string Endpoint => "/kochFractal";
-        
-        public string HttpMethod => "GET";
+
+        public string HttpMethod => "POST";
 
         public int Perform(Stream inputStream, Stream outputStream)
         {
@@ -41,7 +35,7 @@ namespace di.Application.Actions
 
             var painter = sp.GetRequiredService<KochPainter>();
             var figures = painter.Paint();
-            JsonSerializer.Serialize(outputStream, figures, jsonSerializerOptions);
+            JsonSerializer.Serialize(outputStream, figures, options: jsonSerializerOptions);
             return (int)HttpStatusCode.OK;
         }
 

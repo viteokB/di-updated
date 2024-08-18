@@ -1,8 +1,6 @@
 using System.Drawing;
 using di.Application.Models;
 using di.Infrastructure.Common;
-using FractalPainting.App.Fractals;
-using FractalPainting.Infrastructure.Common;
 using Color = di.Application.Models.Color;
 using Point = di.Application.Models.Point;
 using Rectangle = di.Application.Models.Rectangle;
@@ -22,8 +20,6 @@ namespace di.Application.Fractals
             size = Math.Min(imageSettings.Width, imageSettings.Height) / 2.1f;
         }
 
-        // Тут хочу возвращать список Figure, потом сериализовать их и отправлять на фронт.
-        // Там отрисовавыть с помощью <canvas>
         public IReadOnlyCollection<Figure> Paint()
         {
             var figures = new List<Figure>();
@@ -39,8 +35,9 @@ namespace di.Application.Fractals
             var p = new PointF(0, 0);
             foreach (var i in Enumerable.Range(0, settings.IterationsCount))
             {
-                figures.Add(new Rectangle((int)(imageSettings.Width / 3f + p.X), (int)(imageSettings.Height / 2f + p.Y),
-                    new Point(1, 1), new Color(255, 255, 0)));
+                figures.Add(new Rectangle(1, 1,
+                    new Point((int)(imageSettings.Width / 3f + p.X), (int)(imageSettings.Height / 2f + p.Y)),
+                    new Color(255, 255, 0)));
                 if (r.Next(0, 2) == 0)
                     p = new PointF(scale * (p.X * cosa - p.Y * sina), scale * (p.X * sina + p.Y * cosa));
                 else
