@@ -1,14 +1,14 @@
 ﻿using System.Net;
 using System.Text.Json;
-using di.Application.Actions;
-using di.Application.Models;
 using di.Infrastructure.Common;
-using di.Infrastructure.UiActions;
+using FractalPainting.Application.Actions;
+using FractalPainting.Application.Models;
 using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
+using FractalPainting.Infrastructure.UiActions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace di.Application;
+namespace FractalPainting.Application;
 
 internal sealed class App
 {
@@ -34,7 +34,6 @@ internal sealed class App
         httpListener = new HttpListener();
         httpListener.Prefixes.Add("http://localhost:8080/");
         routeActions = actionsArray.ToDictionary(action => $"{action.HttpMethod} {action.Endpoint}", action => action);
-        DependencyInjector.Inject<IImageDirectoryProvider>(actionsArray, CreateSettingsManager().Load());
         DependencyInjector.Inject<IImageSettingsProvider>(actionsArray, CreateSettingsManager().Load());
         DependencyInjector.Inject(actionsArray, new Palette());
     }

@@ -1,17 +1,14 @@
-using System.IO;
+namespace FractalPainting.Infrastructure.Common;
 
-namespace FractalPainting.Infrastructure.Common
+public class FileBlobStorage : IBlobStorage
 {
-    public class FileBlobStorage : IBlobStorage
+    public byte[]? Get(string name)
     {
-        public byte[] Get(string name)
-        {
-            return File.Exists(name) ? File.ReadAllBytes(name) : null;
-        }
+        return File.Exists(name) ? File.ReadAllBytes(name) : null;
+    }
 
-        public void Set(string name, byte[] content)
-        {
-            File.WriteAllBytes(name, content);
-        }
+    public void Set(string name, byte[] content)
+    {
+        File.WriteAllBytes(name, content);
     }
 }

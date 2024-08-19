@@ -1,11 +1,9 @@
 using di.Infrastructure.Common;
 using FractalPainting.Infrastructure.Common;
 
-namespace FractalPainting.App
+namespace FractalPainting.Application;
+
+public class AppSettings : IImageSettingsProvider
 {
-    public class AppSettings : IImageDirectoryProvider, IImageSettingsProvider
-    {
-        public string ImagesDirectory { get; set; }
-        public ImageSettings ImageSettings { get; set; }
-    }
+    public ImageSettings ImageSettings { get; init; } = null!;
 }

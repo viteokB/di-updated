@@ -1,10 +1,11 @@
 ﻿using System.Net;
 using System.Text.Json;
 using di.Infrastructure.Common;
-using di.Infrastructure.UiActions;
+using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
+using FractalPainting.Infrastructure.UiActions;
 
-namespace di.Application.Actions;
+namespace FractalPainting.Application.Actions;
 
 public class GetImageSettingsAction : IApiAction, INeed<IImageSettingsProvider>
 {

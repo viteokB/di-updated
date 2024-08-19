@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using di.Application.Models;
+using FractalPainting.Application.Models;
 
-namespace di.Application;
+namespace FractalPainting.Application;
 
 internal sealed class FigureJsonConverter : JsonConverter<Figure>
 {

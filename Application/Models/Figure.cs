@@ -1,4 +1,4 @@
-﻿namespace di.Application.Models;
+﻿namespace FractalPainting.Application.Models;
 
 public abstract record Figure
 {

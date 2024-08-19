@@ -1,4 +1,4 @@
-﻿using di.Application;
+﻿using FractalPainting.Application;
 using Microsoft.Extensions.DependencyInjection;
 
 var services = new ServiceCollection();

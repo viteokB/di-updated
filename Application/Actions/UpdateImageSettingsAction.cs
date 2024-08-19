@@ -1,32 +1,32 @@
 ﻿using System.Net;
 using System.Text.Json;
 using di.Infrastructure.Common;
-using di.Infrastructure.UiActions;
+using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
+using FractalPainting.Infrastructure.UiActions;
 
-namespace di.Application.Actions
+namespace FractalPainting.Application.Actions;
+
+public class UpdateImageSettingsAction : IApiAction, INeed<IImageSettingsProvider>
 {
-    public class UpdateImageSettingsAction : IApiAction, INeed<IImageSettingsProvider>
+    private IImageSettingsProvider imageSettingsProvider = null!;
+
+    public void SetDependency(IImageSettingsProvider dependency)
     {
-        private IImageSettingsProvider imageSettingsProvider;
+        imageSettingsProvider = dependency;
+    }
 
-        public void SetDependency(IImageSettingsProvider dependency)
-        {
-            imageSettingsProvider = dependency;
-        }
+    public string Endpoint => "/settings";
+    public string HttpMethod => "PUT";
 
-        public string Endpoint => "/settings";
-        public string HttpMethod => "PUT";
+    public int Perform(Stream inputStream, Stream outputStream)
+    {
+        var updatedSettings = JsonSerializer.Deserialize<ImageSettings>(inputStream);
+        var settings = imageSettingsProvider.ImageSettings;
+        settings.Height = updatedSettings?.Height ?? settings.Height;
+        settings.Width = updatedSettings?.Width ?? settings.Width;
+        JsonSerializer.Serialize(outputStream, settings);
 
-        public int Perform(Stream inputStream, Stream outputStream)
-        {
-            var updatedSettings = JsonSerializer.Deserialize<ImageSettings>(inputStream);
-            var settings = imageSettingsProvider.ImageSettings;
-            settings.Height = updatedSettings?.Height ?? settings.Height;
-            settings.Width = updatedSettings?.Width ?? settings.Width;
-            JsonSerializer.Serialize(outputStream, settings);
-
-            return (int)HttpStatusCode.OK;
-        }
+        return (int)HttpStatusCode.OK;
     }
 }

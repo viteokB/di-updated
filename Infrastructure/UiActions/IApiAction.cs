@@ -1,13 +1,10 @@
-using System.Net;
+namespace FractalPainting.Infrastructure.UiActions;
 
-namespace di.Infrastructure.UiActions
+public interface IApiAction
 {
-    public interface IApiAction
-    {
-        string Endpoint { get; }
+    string Endpoint { get; }
 
-        string HttpMethod { get; }
+    string HttpMethod { get; }
         
-        int Perform(Stream inputStream, Stream outputStream);
-    }
+    int Perform(Stream inputStream, Stream outputStream);
 }

@@ -1,6 +1,6 @@
-using FractalPainting.Infrastructure.Common;
+using di.Infrastructure.Common;
 
-namespace di.Infrastructure.Common;
+namespace FractalPainting.Infrastructure.Common;
 
 public interface IImageSettingsProvider
 {
