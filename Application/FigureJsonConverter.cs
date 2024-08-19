@@ -13,16 +13,15 @@ internal sealed class FigureJsonConverter : JsonConverter<Figure>
 
     public override void Write(Utf8JsonWriter writer, Figure value, JsonSerializerOptions options)
     {
-        if (value is Line line)
+        switch (value)
         {
-            writer.WriteRawValue(JsonSerializer.Serialize(line));
-            return;
-        }
+            case Line line:
+                writer.WriteRawValue(JsonSerializer.Serialize(line));
+                return;
 
-        if (value is Rectangle rect)
-        {
-            writer.WriteRawValue(JsonSerializer.Serialize(rect));
-            return;
+            case Rectangle rect:
+                writer.WriteRawValue(JsonSerializer.Serialize(rect));
+                break;
         }
     }
 }

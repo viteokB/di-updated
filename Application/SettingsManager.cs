@@ -1,4 +1,3 @@
-using di.Infrastructure.Common;
 using FractalPainting.Infrastructure.Common;
 
 namespace FractalPainting.Application;
@@ -18,7 +17,7 @@ public class SettingsManager(IObjectSerializer serializer, IBlobStorage storage)
                 Save(defaultSettings);
                 return defaultSettings;
             }
-            return serializer.Deserialize<AppSettings>(data);
+            return serializer.Deserialize<AppSettings>(data)!;
         }
         catch (Exception)
         {

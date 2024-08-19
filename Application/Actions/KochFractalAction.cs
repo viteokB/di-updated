@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json;
-using di.Infrastructure.Common;
 using FractalPainting.Application.Fractals;
 using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
@@ -16,10 +15,14 @@ public class KochFractalAction : IApiAction, INeed<Palette>, INeed<IImageSetting
     private Palette palette = null!;
     private IImageSettingsProvider imageSettingsProvider = null!;
 
-
     public void SetDependency(Palette dependency)
     {
         palette = dependency;
+    }
+    
+    public void SetDependency(IImageSettingsProvider dependency)
+    {
+        imageSettingsProvider = dependency;
     }
 
     public string Endpoint => "/kochFractal";
@@ -38,10 +41,5 @@ public class KochFractalAction : IApiAction, INeed<Palette>, INeed<IImageSetting
         var figures = painter.Paint();
         JsonSerializer.Serialize(outputStream, figures, options: jsonSerializerOptions);
         return (int)HttpStatusCode.OK;
-    }
-
-    public void SetDependency(IImageSettingsProvider dependency)
-    {
-        imageSettingsProvider = dependency;
     }
 }

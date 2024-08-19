@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json;
-using di.Infrastructure.Common;
 using FractalPainting.Application.Actions;
 using FractalPainting.Application.Models;
 using FractalPainting.Infrastructure.Common;
