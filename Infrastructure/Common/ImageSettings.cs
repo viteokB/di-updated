@@ -1,4 +1,4 @@
-namespace di.Infrastructure.Common;
+namespace FractalPainting.Infrastructure.Common;
 
 public class ImageSettings
 {

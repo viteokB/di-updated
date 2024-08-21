@@ -1,4 +1,3 @@
-using di.Infrastructure.Common;
 using FractalPainting.Infrastructure.Common;
 
 namespace FractalPainting.Application;

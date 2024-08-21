@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text.Json;
-using di.Infrastructure.Common;
 using FractalPainting.Application.Fractals;
 using FractalPainting.Infrastructure.Common;
 using FractalPainting.Infrastructure.Injection;
@@ -14,7 +13,12 @@ public class DragonFractalAction : IApiAction, INeed<IImageSettingsProvider>
     private readonly JsonSerializerOptions jsonSerializerOptions =
         new() { Converters = { new FigureJsonConverter() } };
     private IImageSettingsProvider imageSettingsProvider = null!;
-        
+    
+    public void SetDependency(IImageSettingsProvider dependency)
+    {
+        imageSettingsProvider = dependency;
+    }
+
     public string Endpoint => "/dragonFractal";
 
     public string HttpMethod => "POST";
@@ -33,10 +37,5 @@ public class DragonFractalAction : IApiAction, INeed<IImageSettingsProvider>
         JsonSerializer.Serialize(outputStream, figures, options: jsonSerializerOptions);
 
         return (int)HttpStatusCode.OK;
-    }
-
-    public void SetDependency(IImageSettingsProvider dependency)
-    {
-        imageSettingsProvider = dependency;
     }
 }
