@@ -26,8 +26,8 @@
 
 ### Dependency injection
 
-Для сборки зависимостей используй любой DI Container, отличный от Ninject.
-Можно воспользоваться [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/) или довольно распространенным di контейнером [Autofac](https://www.nuget.org/packages/Autofac/). В выборе di контейнера может помочь статья [IoC Container Benchmark - Performance comparison](https://www.palmmedia.de/Blog/2011/8/30/ioc-container-benchmark-performance-comparison).
+Для сборки зависимостей используй любой DI Container, отличный от Microsoft.Extensions.DependencyInjection.
+Можно воспользоваться [Pure.DI](https://www.nuget.org/packages/Pure.DI/) или довольно распространенным di контейнером [Autofac](https://www.nuget.org/packages/Autofac/). В выборе di контейнера может помочь статья [IoC Container Benchmark - Performance comparison](https://www.palmmedia.de/Blog/2011/8/30/ioc-container-benchmark-performance-comparison).
 
 ### Тесты
 
