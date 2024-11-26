@@ -11,6 +11,7 @@ namespace FractalPainting.Application;
 
 internal sealed class App
 {
+    private const string Endpoint = "http://localhost:8080/";
     private readonly HttpListener httpListener;
     private readonly IReadOnlyDictionary<string, IApiAction> routeActions;
 
@@ -31,7 +32,7 @@ internal sealed class App
     {
         var actionsArray = actions.ToArray();
         httpListener = new HttpListener();
-        httpListener.Prefixes.Add("http://localhost:8080/");
+        httpListener.Prefixes.Add(Endpoint);
         routeActions = actionsArray.ToDictionary(action => $"{action.HttpMethod} {action.Endpoint}", action => action);
         DependencyInjector.Inject<IImageSettingsProvider>(actionsArray, CreateSettingsManager().Load());
         DependencyInjector.Inject(actionsArray, new Palette());
@@ -40,6 +41,7 @@ internal sealed class App
     public async Task Run()
     {
         httpListener.Start();
+        Console.WriteLine($"Listening at {Endpoint}");
         while (true)
         {
             var context = await httpListener.GetContextAsync();
