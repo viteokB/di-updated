@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "di", "di.csproj", "{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "di", "FractalPainter/di.csproj", "{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
