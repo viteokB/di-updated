@@ -1,6 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "di", "FractalPainter/di.csproj", "{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "di", "FractalPainter\di.csproj", "{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordReaders", "WordReaders\WordReaders.csproj", "{48E1DF4E-1564-4CC8-95EE-ECF7F7C67AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordHandlers", "WordHandlers\WordHandlers.csproj", "{FC41849B-B892-48ED-9301-E17B42C0DBD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagCloud", "TagCloud\TagCloud.csproj", "{9D6FC2E5-4D07-433B-A7C5-C2BDFA1CDB99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{609FF067-6F50-45F0-9DD4-3650BE104DDB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{03044D57-E878-4E36-8D7A-26DC6472BB4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +25,31 @@ Global
 		{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B70F6B3-5C20-40D2-BFC9-D95C18D65DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E1DF4E-1564-4CC8-95EE-ECF7F7C67AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E1DF4E-1564-4CC8-95EE-ECF7F7C67AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E1DF4E-1564-4CC8-95EE-ECF7F7C67AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E1DF4E-1564-4CC8-95EE-ECF7F7C67AA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6FC2E5-4D07-433B-A7C5-C2BDFA1CDB99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6FC2E5-4D07-433B-A7C5-C2BDFA1CDB99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6FC2E5-4D07-433B-A7C5-C2BDFA1CDB99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6FC2E5-4D07-433B-A7C5-C2BDFA1CDB99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18ADFF79-4B6D-4BEE-927C-E7619895FCA4}
 	EndGlobalSection
 EndGlobal
