@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace TagCloud.Interfaces
 {
-    internal interface ICloudLayouter
+    public interface ICloudLayouter
     {
+        public Rectangle PutNextRectangle(Size rectangleSize);
+
+        public List<Rectangle> Rectangles { get; }
     }
 }

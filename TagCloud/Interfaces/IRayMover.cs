@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace TagCloud.Interfaces
 {
-    internal interface IRayMover
+    public interface IRayMover
     {
+        IEnumerable<Point> MoveRay();
     }
 }
