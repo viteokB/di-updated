@@ -1,11 +1,9 @@
 ﻿using System.Drawing;
 
-namespace TagCloud.Interfaces
-{
-    public interface ICloudLayouter
-    {
-        public Rectangle PutNextRectangle(Size rectangleSize);
+namespace TagCloud.Interfaces;
 
-        public List<Rectangle> Rectangles { get; }
-    }
+public interface ICloudLayouter
+{
+    public List<Rectangle> Rectangles { get; }
+    public Rectangle PutNextRectangle(Size rectangleSize);
 }
