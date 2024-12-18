@@ -5,11 +5,11 @@ namespace TagCloud;
 
 public class TagCloudLayouter : ICloudLayouter
 {
-    public readonly ISpiralPointGenerator RayMover;
+    public readonly ISpiralPointGenerator PointGenerator;
 
     public TagCloudLayouter(ISpiralPointGenerator rayMover)
     {
-        RayMover = rayMover;
+        PointGenerator = rayMover;
     }
 
     public List<Rectangle> Rectangles { get; } = new();
@@ -19,7 +19,7 @@ public class TagCloudLayouter : ICloudLayouter
         if (rectangleSize.Width <= 0 || rectangleSize.Height <= 0)
             throw new ArgumentException("The height and width of the Rectangle must be greater than 0");
 
-        foreach (var point in RayMover.GeneratePoints())
+        foreach (var point in PointGenerator.GeneratePoints())
         {
             var location = new Point(point.X - rectangleSize.Width / 2,
                 point.Y - rectangleSize.Height / 2);

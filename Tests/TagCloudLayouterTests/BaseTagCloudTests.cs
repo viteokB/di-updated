@@ -45,7 +45,7 @@ namespace Tests.TagCloudLayouterTests
         [Test]
         public virtual void TagCloudLayouter_WhenCreated_FirstPointEqualsCenter()
         {
-            var firstPoint = _layouter.RayMover.GeneratePoints().First();
+            var firstPoint = _layouter.PointGenerator.GeneratePoints().First();
 
             firstPoint.Should().BeEquivalentTo(_center);
         }
