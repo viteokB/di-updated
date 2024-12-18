@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TagCloud\TagCloud.csproj" />
     <ProjectReference Include="..\WordHandlers\WordHandlers.csproj" />
     <ProjectReference Include="..\WordReaders\WordReaders.csproj" />
   </ItemGroup>
