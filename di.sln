@@ -9,13 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordReaders", "WordReaders\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordHandlers", "WordHandlers\WordHandlers.csproj", "{FC41849B-B892-48ED-9301-E17B42C0DBD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{609FF067-6F50-45F0-9DD4-3650BE104DDB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{03044D57-E878-4E36-8D7A-26DC6472BB4D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagCloud", "TagCloud\TagCloud.csproj", "{2B78AA80-40D5-4AFF-8E69-BBAD33D25B09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitmapSavers", "BitmapSavers\BitmapSavers.csproj", "{29E92C47-C135-4EF6-9296-354122C7D1B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BitmapSavers", "BitmapSavers\BitmapSavers.csproj", "{29E92C47-C135-4EF6-9296-354122C7D1B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagCloudDesktop", "TagCloudDesktop\TagCloudDesktop.csproj", "{E9E98039-2E11-4A20-A200-54E8479DA63D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC41849B-B892-48ED-9301-E17B42C0DBD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{609FF067-6F50-45F0-9DD4-3650BE104DDB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03044D57-E878-4E36-8D7A-26DC6472BB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{29E92C47-C135-4EF6-9296-354122C7D1B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29E92C47-C135-4EF6-9296-354122C7D1B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29E92C47-C135-4EF6-9296-354122C7D1B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9E98039-2E11-4A20-A200-54E8479DA63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9E98039-2E11-4A20-A200-54E8479DA63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9E98039-2E11-4A20-A200-54E8479DA63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9E98039-2E11-4A20-A200-54E8479DA63D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
