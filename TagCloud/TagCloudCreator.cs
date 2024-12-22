@@ -1,32 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using TagCloud.Interfaces;
 using TagCloud.Visualisers;
 
-namespace TagCloud
+namespace TagCloud;
+
+public class TagCloudCreator
 {
-    public class TagCloudCreator
+    private readonly ICloudLayouter layouter;
+
+    public TagCloudCreator(ICloudLayouter layouter)
     {
-        public readonly ICloudLayouter Layouter;
-        
-        public TagCloudCreator(ICloudLayouter layouter)
+        this.layouter = layouter;
+    }
+
+    public Bitmap CreateTagCloudBitmap(Dictionary<string, int> wordFreqDictionary, ImageCreateSettings settings)
+    {
+        if (wordFreqDictionary == null || wordFreqDictionary.Count == 0)
+            throw new ArgumentException("The word frequency dictionary cannot be null or empty.",
+                nameof(wordFreqDictionary));
+
+        var maxFreq = wordFreqDictionary.Values.Max();
+        var cloudWords = new List<TagCloudWord>();
+
+        foreach (var kvp in wordFreqDictionary)
         {
-            Layouter = layouter;
+            var word = kvp.Key;
+            var freq = kvp.Value;
+
+            var fontSize = TransformFreqToSize(settings.FontMinSize, settings.FontMaxSize, freq, maxFreq);
+            var rectangleSize = TextSize(word, fontSize, settings.FontFamily);
+
+            var rectangle = layouter.PutNextRectangle(rectangleSize);
+            cloudWords.Add(new TagCloudWord(rectangle, word, fontSize));
         }
 
-        public Bitmap CreateTagCloudBitmap(Dictionary<string, int> wordFreqDictionary, ImageSettings settings)
-        {
-            throw new NotImplementedException();
-        }
+        return BitmapCreator.GenerateImage(cloudWords, settings);
+    }
 
-        private int TransformFreqToSize(int minFontSize, int maxFontSize, int freq, int maxFreq)
-        {
-            return (int)(minFontSize + ((float) freq / maxFreq * (maxFontSize - minFontSize)));
-        }
+    private int TransformFreqToSize(int minFontSize, int maxFontSize, int freq, int maxFreq)
+    {
+        return (int)(minFontSize + (float)freq / maxFreq * (maxFontSize - minFontSize));
+    }
+
+    private Size TextSize(string text, int fontSize, FontFamily fontFamily)
+    {
+        using var tempFont = new Font(fontFamily, fontSize);
+        using var bitmap = new Bitmap(1, 1);
+        using var graphics = Graphics.FromImage(bitmap);
+        return graphics.MeasureString(text, tempFont).ToSize();
     }
 }
