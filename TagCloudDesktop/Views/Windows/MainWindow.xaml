@@ -1,0 +1,157 @@
+﻿<Window x:Class="TagCloudDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa5="http://schemas.fontawesome.com/icons/"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="900">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
+                <GradientStop Color="#FF2A1C45" Offset="0"/>
+                <GradientStop Color="#FF262C5F" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="330" Width="13*" />
+            <ColumnDefinition Width="5*" MaxWidth="370" MinWidth="270"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Height="Auto" Grid.Row="0" Grid.ColumnSpan="2" Background="#FF0E25FF">
+            <MenuItem FontSize="16">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:SvgAwesome Icon="Regular_FileAlt" Height="17" Margin="0,1,8,1" Foreground="White" />
+                        <TextBlock Text="Файл" Foreground="White" Margin="1" />
+                    </StackPanel>
+                </MenuItem.Header>
+                <MenuItem Command="{Binding OpenCommand}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:SvgAwesome Icon="Regular_FolderOpen" Height="17" Margin="0,1,8,1" />
+                            <TextBlock>Загрузить файл слов</TextBlock>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem FontSize="16">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <fa5:SvgAwesome Icon="Solid_Image" Height="17" Margin="0,1,8,1" Foreground="White" />
+                        <TextBlock Text="Изображение" Foreground="White" Margin="1" />
+                    </StackPanel>
+                </MenuItem.Header>
+                <MenuItem Command="{Binding OpenCommand}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <fa5:SvgAwesome Icon="Regular_FolderOpen" Height="17" Margin="0,1,8,1" />
+                            <TextBlock>Сохранить изображение</TextBlock>
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <Border Grid.Row="1" Grid.Column="0" Margin="10" BorderBrush="White" 
+                Style="{StaticResource SomeHeaderBorder}">
+            <Image Source="{Binding MyImage}" Stretch="Uniform" />
+        </Border>
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TabControl>
+                <TabItem Header="Настройки">
+                    <Border Style="{StaticResource SomeHeaderBorder}" Background="#FF4D45DD">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Image Width:" Margin="5"
+                                       Style="{StaticResource BaseText}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Name="ImageWidthTextBox" Margin="5"
+                                     Style="{StaticResource InputTextBox}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Image Height:" Margin="5"
+                                           Style="{StaticResource BaseText}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" Name="ImageHeightTextBox" Margin="5"
+                                     Style="{StaticResource InputTextBox}"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Background Color:" Margin="5"
+                                           Style="{StaticResource BaseText}"/>
+                            <ComboBox Grid.Row="2" Grid.Column="1" Name="BackgroundColorComboBox" Margin="5"
+                                      Style="{StaticResource InputCombobox}"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Font Family:" Margin="5"
+                                           Style="{StaticResource BaseText}"/>
+                            <ComboBox Grid.Row="3" Grid.Column="1" Name="FontFamilyComboBox" Margin="5"
+                                      Style="{StaticResource InputCombobox}"/>
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Font Min Size:" Margin="5"
+                                           Style="{StaticResource BaseText}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" Name="FontMinSizeTextBox" Margin="5"
+                                     Style="{StaticResource InputTextBox}"/>
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Font Max Size:" Margin="5"
+                                           Style="{StaticResource BaseText}"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" Name="FontMaxSizeTextBox" Margin="5"
+                                     Style="{StaticResource InputTextBox}"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Word Color:" Margin="5"
+                                           Style="{StaticResource BaseText}"/>
+                            <ComboBox Grid.Row="6" Grid.Column="1" Name="WordColorComboBox" Margin="5"
+                                      Style="{StaticResource InputCombobox}"/>
+
+                            <Button Grid.Row="7" Grid.Column="0" Content="Применить настройки" Name="CreateSettingsButton"
+                                        Margin="5" Grid.ColumnSpan="2" Template="{StaticResource RoundedButton}"/>
+                        </Grid>
+                    </Border>
+                </TabItem>
+                <TabItem Header="Алгоритм">
+                    <Border BorderBrush="Black" 
+                    BorderThickness="1" CornerRadius="10" Background="#FF4D45DD" >
+                        <StackPanel>
+                            <Button x:Name="ThresholdFilter" Margin="10" Template="{StaticResource RoundedButton}" 
+                                    Height="50" Background="DarkRed">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BaseText}" Text="Круглое облако"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="GreyColors" FontSize="18" Margin="10" Background="BlueViolet"
+                                    Template="{StaticResource RoundedButton}" Height="50">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BaseText}" Text="Квадратное облако"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="Inversion" FontSize="18" Margin="10" Background="#0f125c"
+                                    Template="{StaticResource RoundedButton}" Height="50">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BaseText}" Text="Треугольное облако"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
