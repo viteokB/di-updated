@@ -1,12 +1,12 @@
-﻿using System.Drawing.Imaging;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace BitmapSavers;
 
 public class BitmapSaver
 {
-    public void Save(ImageSaveSettings saveSettings)
+    public void Save(ImageSaveSettings saveSettings, Bitmap bitmap)
     {
-        var bitmap = saveSettings.Bitmap;
         var fullPath = saveSettings.Path;
 
         if (bitmap == null) throw new ArgumentNullException(nameof(bitmap), "Bitmap cannot be null.");

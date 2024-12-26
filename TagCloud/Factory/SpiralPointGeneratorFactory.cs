@@ -14,8 +14,8 @@ namespace TagCloud.Factory
 {
     public class SpiralPointGeneratorFactory : ISpiralPointGeneratorFactory
     {
-        public ISpiralPointGenerator CreateSpiralPointGenerator(SpiralPointGeneratorsType generatorType,
-            ImageCreateSettings imageSettings) => generatorType switch
+        public ISpiralPointGenerator CreateSpiralPointGenerator(ImageCreateSettings imageSettings)
+            => imageSettings.pointGeneratorsType switch
         {
             SpiralPointGeneratorsType.Circular => new CircularSpiralPointCreator(
                 new Point(imageSettings.ImageSize.Width / 2, imageSettings.ImageSize.Height / 2)),

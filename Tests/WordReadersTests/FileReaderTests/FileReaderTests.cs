@@ -10,6 +10,7 @@ using ApprovalTests.Reporters;
 using ApprovalTests.Writers;
 using FluentAssertions;
 using WordReaders.Readers;
+using WordReaders.Settings;
 
 namespace Tests.WordReadersTests.FileReaderTests
 {
@@ -22,7 +23,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void FileReader_Read_ShouldReadNormalTxtCorrect()
         {
-            var fileReader = new FileReader(@$"{GetFilesParentDir}/txt1_correct.txt", Encoding.UTF8);
+            var fileReader = new FileReader(new WordReaderSettings($@"{GetFilesParentDir}/txt1_correct.txt",
+                Encoding.UTF8));
 
             Approvals.Verify(CreateWordsOutput(fileReader.Read()));
         }
@@ -30,7 +32,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void FileReader_Read_ShouldThrowExceptionOnWrongTxt()
         {
-            var fileReader = new FileReader(@$"{GetFilesParentDir}/txt_not_one_word_inline.txt", Encoding.UTF8);
+            var fileReader = new FileReader(new WordReaderSettings($@"{GetFilesParentDir}/txt_not_one_word_inline.txt",
+                Encoding.UTF8));
             Action act = () => fileReader.Read();
 
             act.Should().Throw<Exception>()
@@ -41,7 +44,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void FileReader_Read_ShouldReadTxtWithEmptyLinesCorrect()
         {
-            var fileReader = new FileReader(@$"{GetFilesParentDir}/txt_with_emptyline.txt", Encoding.UTF8);
+            var fileReader = new FileReader(new WordReaderSettings($@"{GetFilesParentDir}/txt_with_emptyline.txt",
+                Encoding.UTF8));
 
             Approvals.Verify(CreateWordsOutput(fileReader.Read()));
         }
@@ -50,7 +54,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void FileReader_Read_ShouldReadTxtWithWhiteSpacesCorrect()
         {
-            var fileReader = new FileReader($@"{GetFilesParentDir}/txt_trim_spaces.txt", Encoding.UTF8);
+            var fileReader = new FileReader(new WordReaderSettings($@"{GetFilesParentDir}/txt_trim_spaces.txt",
+                Encoding.UTF8));
 
             Approvals.Verify(CreateWordsOutput(fileReader.Read()));
         }

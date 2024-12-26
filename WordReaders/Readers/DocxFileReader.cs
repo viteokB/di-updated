@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using WordReaders.Settings;
 
 namespace WordReaders.Readers
 {
@@ -7,9 +8,9 @@ namespace WordReaders.Readers
     {
         public readonly string FilePath;
 
-        public DocxFileReader(string filePath)
+        public DocxFileReader(WordReaderSettings readerSettings)
         {
-            FilePath = filePath ?? throw new ArgumentNullException(nameof(filePath), "File path cannot be null.");
+            FilePath = readerSettings.Path ?? throw new ArgumentNullException(nameof(readerSettings.Path), "File path cannot be null.");
 
             if (!File.Exists(FilePath))
             {

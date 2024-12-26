@@ -1,12 +1,13 @@
 ﻿using System.Text;
+using WordReaders.Settings;
 
 namespace WordReaders.Readers
 {
-    public class FileReader(string filePath, Encoding encoding) : IWordReader
+    public class FileReader(WordReaderSettings readerSettings) : IWordReader
     {
-        public readonly string FilePath = filePath;
+        public readonly string FilePath = readerSettings.Path;
 
-        public readonly Encoding Encoding = encoding;
+        public readonly Encoding Encoding = readerSettings.Encoding;
 
         public IEnumerable<string> Read()
         {

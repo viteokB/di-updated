@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordReaders.Readers;
+using WordReaders.Settings;
 
 namespace Tests.WordReadersTests.FileReaderTests
 {
@@ -19,7 +20,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocFileReader_Read_ShouldReadNormalDocCorrect()
         {
-            var docReader = new DocFileReader(@$"{GetFilesParentDir}/doc1_correct.doc");
+            var docReader = new DocFileReader(new WordReaderSettings(@$"{GetFilesParentDir}/doc1_correct.doc",
+                Encoding.UTF8));
             var data = docReader.Read();
 
             Approvals.Verify(CreateWordsOutput(data));
@@ -29,7 +31,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocFileReader_Read_ShouldThrowExceptionOnWrongDoc()
         {
-            var docReader = new DocFileReader(@$"{GetFilesParentDir}/doc_not_one_word_inline.doc");
+            var docReader = new DocFileReader(new WordReaderSettings(@$"{GetFilesParentDir}/doc_not_one_word_inline.doc",
+                Encoding.UTF8));
             Action act = () => docReader.Read();
             act.Should().Throw<Exception>()
                 .WithMessage("The doc file must contain no more than one word per line!");
@@ -39,7 +42,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocFileReader_Read_ShouldReadDocWithEmptyLinesCorrect()
         {
-            var docReader = new DocFileReader(@$"{GetFilesParentDir}/doc_with_emptyline.doc");
+            var docReader = new DocFileReader(new WordReaderSettings($@"{GetFilesParentDir}/doc_with_emptyline.doc",
+                Encoding.UTF8));
             Approvals.Verify(CreateWordsOutput(docReader.Read()));
         }
 
@@ -48,7 +52,8 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocFileReader_Read_ShouldReadDocWithWhiteSpacesCorrect()
         {
-            var docReader = new DocFileReader(@$"{GetFilesParentDir}/doc_trim_spaces.doc");
+            var docReader = new DocFileReader(new WordReaderSettings($@"{GetFilesParentDir}/doc_trim_spaces.doc", 
+                Encoding.UTF8));
             Approvals.Verify(CreateWordsOutput(docReader.Read()));
         }
     }

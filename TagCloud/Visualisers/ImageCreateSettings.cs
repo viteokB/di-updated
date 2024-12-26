@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using TagCloud.SpiralPointGenerators.enums;
 
 namespace TagCloud.Visualisers;
 
@@ -8,4 +9,5 @@ public record ImageCreateSettings(
     FontFamily FontFamily,
     int FontMinSize,
     int FontMaxSize,
-    Color WordColor);
+    Color WordColor,
+    SpiralPointGeneratorsType pointGeneratorsType);

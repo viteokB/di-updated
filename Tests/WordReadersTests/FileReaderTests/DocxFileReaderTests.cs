@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordReaders.Readers;
+using WordReaders.Settings;
 
 namespace Tests.WordReadersTests.FileReaderTests
 {
@@ -19,7 +20,7 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocxFileReader_Read_ShouldReadNormalDocxCorrect()
         {
-            var docxReader = new DocxFileReader(@$"{GetFilesParentDir}/docx1_correct.docx");
+            var docxReader = new DocxFileReader(new WordReaderSettings($@"{GetFilesParentDir}/docx1_correct.docx", Encoding.UTF8));
 
             Approvals.Verify(CreateWordsOutput(docxReader.Read()));
         }
@@ -27,7 +28,7 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocxFileReader_Read_ShouldThrowExceptionOnWrongDocx()
         {
-            var docxReader = new DocxFileReader(@$"{GetFilesParentDir}/docx_not_one_word_inline.docx");
+            var docxReader = new DocxFileReader(new WordReaderSettings($@"{GetFilesParentDir}/docx_not_one_word_inline.docx", Encoding.UTF8));
             Action act = () => docxReader.Read();
             act.Should().Throw<Exception>()
                 .WithMessage("The docx file must contain no more than one word per line!");
@@ -37,7 +38,7 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocxFileReader_Read_ShouldReadDocxWithEmptyLinesCorrect()
         {
-            var docxReader = new DocxFileReader(@$"{GetFilesParentDir}/docx_with_emptyline.docx");
+            var docxReader = new DocxFileReader(new WordReaderSettings($@"{GetFilesParentDir}/docx_with_emptyline.docx", Encoding.UTF8));
 
             Approvals.Verify(CreateWordsOutput(docxReader.Read()));
         }
@@ -46,7 +47,7 @@ namespace Tests.WordReadersTests.FileReaderTests
         [Test]
         public void DocxFileReader_Read_ShouldReadDocxWithWhiteSpacesCorrect()
         {
-            var docxReader = new DocxFileReader(@$"{GetFilesParentDir}/docx_trim_spaces.docx");
+            var docxReader = new DocxFileReader(new WordReaderSettings($@"{GetFilesParentDir}/docx_trim_spaces.docx", Encoding.UTF8));
 
             Approvals.Verify(CreateWordsOutput(docxReader.Read()));
         }

@@ -1,5 +1,6 @@
 ﻿using Spire.Doc;
 using Spire.Doc.Documents;
+using WordReaders.Settings;
 
 namespace WordReaders.Readers;
 
@@ -7,9 +8,9 @@ public class DocFileReader : IWordReader
 {
     public readonly string FilePath;
 
-    public DocFileReader(string filePath)
+    public DocFileReader(WordReaderSettings readerSettings)
     {
-        FilePath = filePath ?? throw new ArgumentNullException(nameof(filePath), "File path cannot be null.");
+        FilePath = readerSettings.Path ?? throw new ArgumentNullException(nameof(readerSettings.Path), "File path cannot be null.");
 
         if (!File.Exists(FilePath))
         {

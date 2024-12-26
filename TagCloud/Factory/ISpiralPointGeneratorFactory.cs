@@ -14,6 +14,6 @@ namespace TagCloud.Factory
 {
     public interface ISpiralPointGeneratorFactory
     {
-        ISpiralPointGenerator CreateSpiralPointGenerator(SpiralPointGeneratorsType generatorType, ImageCreateSettings imageSettings);
+        ISpiralPointGenerator CreateSpiralPointGenerator(ImageCreateSettings imageSettings);
     }
 }

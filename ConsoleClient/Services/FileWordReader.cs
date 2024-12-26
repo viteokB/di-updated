@@ -8,7 +8,7 @@ using System.Windows;
 using WordReaders;
 using WordReaders.Factory;
 
-namespace TagCloudDesktop.Services
+namespace ConsoleClient.Services
 {
     public class FileWordReader
     {
@@ -23,18 +23,6 @@ namespace TagCloudDesktop.Services
         public IEnumerable<string> Read()
         {
             return wordReader.Read();
-        }
-
-        public void OpenFile()
-        {
-            //OpenFileDialog fileDialog = new OpenFileDialog();
-
-            //fileDialog.Filter = "Image files (*.doc;*.docx;*.txt)|*.doc;*.docx;*.txt;|All files (*.*)|*.*";
-
-            //if (fileDialog.ShowDialog() == true)
-            //{
-            //    wordReader = factory.CreateWordReader(fileDialog.FileName);
-            //}
         }
     }
 }
