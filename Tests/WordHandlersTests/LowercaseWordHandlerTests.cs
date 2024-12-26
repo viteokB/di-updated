@@ -12,10 +12,18 @@ namespace Tests.WordHandlersTests
     [TestFixture]
     public class LowercaseWordHandlerTests
     {
+        private LowercaseWordHandler lowercaseWordHandler;
+
+        [OneTimeSetUp]
+        protected void SetUp()
+        {
+            lowercaseWordHandler = new LowercaseWordHandler();
+        }
+
         [TestCaseSource(typeof(LowercaseTestData), nameof(LowercaseTestData.OneWordCases))]
         public void LowercaseWordHandler_ApplyHandler_ShouldLowerOneWord(List<string> given, List<string> expected)
         {
-            var actual = LowercaseWordHandler.ApplyWordHandler(given);
+            var actual = lowercaseWordHandler.ApplyWordHandler(given);
 
             actual.Should().BeEquivalentTo(expected);
         }
@@ -23,7 +31,7 @@ namespace Tests.WordHandlersTests
         [TestCaseSource(typeof(LowercaseTestData), nameof(LowercaseTestData.FewWordsCases))]
         public void LowercaseWordHandler_ApplyHandler_ShouldLowerFewWords(List<string> given, List<string> expected)
         {
-            var actual = LowercaseWordHandler.ApplyWordHandler(given);
+            var actual = lowercaseWordHandler.ApplyWordHandler(given);
 
             actual.Should().BeEquivalentTo(expected);
         }

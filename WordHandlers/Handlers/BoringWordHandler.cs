@@ -17,7 +17,7 @@ namespace WordHandlers.Handlers
             return notBoringPartOfSpeeches.Contains(wordInfo.PartOfSpeech);
         }
 
-        public static IEnumerable<string> ApplyWordHandler(IEnumerable<string> words)
+        public IEnumerable<string> ApplyWordHandler(IEnumerable<string> words)
         {
             if (words == null)
             {
@@ -27,8 +27,7 @@ namespace WordHandlers.Handlers
             return myStemAnalyzer
                 .AnalyzeWords(words)
                 .Where(IsNotBoringWord)
-                .Select(wordInfo => wordInfo.Lemma)
-                .ToHashSet(); // Используем ToHashSet() чтобы избежать дубликатов и сразу получить HashSet
+                .Select(wordInfo => wordInfo.Lemma);
         }
 
         protected virtual void Dispose(bool disposing)

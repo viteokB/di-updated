@@ -12,7 +12,7 @@ public class SquareSpiralPointCreator : ISpiralPointGenerator
     private int CurrentHeight; // Текущая высота прямоугольника
     private int CurrentWidth; // Текущая ширина прямоугольника
 
-    public SquareSpiralPointCreator(Point center, int initialWidth, int initialHeight, int step = 1)
+    public SquareSpiralPointCreator(Point center, int initialWidth = 2, int initialHeight = 2, int step = 1)
     {
         Center = center;
         CurrentWidth = initialWidth;

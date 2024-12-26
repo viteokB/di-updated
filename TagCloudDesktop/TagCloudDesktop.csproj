@@ -9,11 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="Autofac" Version="8.2.0" />
+    <PackageReference Include="FontAwesome5" Version="2.1.11" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FontAwesome5" Version="2.1.11" />
+    <ProjectReference Include="..\BitmapSavers\BitmapSaver.csproj" />
+    <ProjectReference Include="..\TagCloud\TagCloud.csproj" />
+    <ProjectReference Include="..\WordHandlers\WordHandlers.csproj" />
+    <ProjectReference Include="..\WordReaders\WordReaders.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

@@ -2,4 +2,4 @@
 
 namespace BitmapSavers;
 
-public record ImageSaveSettings(Bitmap Bitmap, string Path, string Name, ImageSaveFormat Format);
+public record ImageSaveSettings(Bitmap Bitmap, string Path);

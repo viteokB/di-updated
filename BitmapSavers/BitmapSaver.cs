@@ -4,18 +4,16 @@ namespace BitmapSavers;
 
 public class BitmapSaver
 {
-    public string Save(ImageSaveSettings saveSettings)
+    public void Save(ImageSaveSettings saveSettings)
     {
         var bitmap = saveSettings.Bitmap;
-        var path = saveSettings.Path;
-        var name = saveSettings.Name;
-        var format = saveSettings.Format;
+        var fullPath = saveSettings.Path;
 
         if (bitmap == null) throw new ArgumentNullException(nameof(bitmap), "Bitmap cannot be null.");
-        if (string.IsNullOrEmpty(path)) throw new ArgumentException("Path cannot be null or empty.", nameof(path));
+        if (string.IsNullOrEmpty(fullPath)) throw new ArgumentException("Path cannot be null or empty.", nameof(fullPath));
 
-        var imageFormat = GetImageFormat(format);
-        var fullPath = Path.Combine(Path.GetFullPath(path), name, format.ToString());
+        var extension = Path.GetExtension(fullPath).ToLower();
+        var imageFormat = GetImageFormat(extension);
 
         try
         {
@@ -27,16 +25,16 @@ public class BitmapSaver
         }
     }
 
-    private ImageFormat GetImageFormat(ImageSaveFormat imgSaveFormat)
+    private ImageFormat GetImageFormat(string extension)
     {
-        return imgSaveFormat switch
+        return extension switch
         {
-            ImageSaveFormat.Bmp => ImageFormat.Bmp,
-            ImageSaveFormat.Emf => ImageFormat.Emf,
-            ImageSaveFormat.Jpeg => ImageFormat.Jpeg,
-            ImageSaveFormat.Png => ImageFormat.Png,
-            ImageSaveFormat.Wmf => ImageFormat.Wmf,
-            _ => throw new ArgumentException("The transmitted type is not supported");
+            ".bmp" => ImageFormat.Bmp,
+            ".emf" => ImageFormat.Emf,
+            ".jpeg" => ImageFormat.Jpeg,
+            ".png" => ImageFormat.Png,
+            ".wmf" => ImageFormat.Wmf,
+            _ => throw new ArgumentException("The transmitted type is not supported")
         };
     }
 }
