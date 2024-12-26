@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TagCloudDesktop.Infrastructure.Commands.Base;
 
-namespace TagCloudDesktop.Infrastructure.Commands.Base
+public class LambdaCommand : Command
 {
-    public class LambdaCommand : Command
+    private readonly Func<object, bool> _CanExecute;
+    private readonly Action<object> _Execute;
+
+    public LambdaCommand(Action<object> Execute, Func<object, bool> CanExecure = null)
     {
-        private readonly Action<object> _Execute;
+        _Execute = Execute ?? throw new ArgumentException(nameof(Execute));
+        _CanExecute = CanExecure;
+    }
 
-        private readonly Func<object, bool> _CanExecute;
+    public override bool CanExecute(object? parameter)
+    {
+        return _CanExecute?.Invoke(parameter) ?? true;
+    }
 
-        public LambdaCommand(Action<object> Execute, Func<object, bool> CanExecure = null)
-        {
-            _Execute = Execute ?? throw new ArgumentException(nameof(Execute));
-            _CanExecute = CanExecure;
-        }
-        public override bool CanExecute(object? parameter) => _CanExecute?.Invoke(parameter) ?? true;
-
-        public override void Execute(object? parameter) => _Execute(parameter);
+    public override void Execute(object? parameter)
+    {
+        _Execute(parameter);
     }
 }

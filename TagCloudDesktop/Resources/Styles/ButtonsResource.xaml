@@ -6,7 +6,7 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{TemplateBinding Background}"
                 Height="{TemplateBinding Height}"
-                Width="{TemplateBinding Width}" >
+                Width="{TemplateBinding Width}">
             <ContentControl Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -18,11 +18,11 @@
                 <Setter TargetName="buttonBorder" Property="BorderBrush" Value="White" />
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontWeight" Value="Bold" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Foreground" Value="Gray"/>
-                <Setter TargetName="buttonBorder" Property="Background" Value="LightGray"/>
+                <Setter Property="Foreground" Value="Gray" />
+                <Setter TargetName="buttonBorder" Property="Background" Value="LightGray" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

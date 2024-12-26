@@ -10,12 +10,10 @@ public class DocFileReader : IWordReader
 
     public DocFileReader(WordReaderSettings readerSettings)
     {
-        FilePath = readerSettings.Path ?? throw new ArgumentNullException(nameof(readerSettings.Path), "File path cannot be null.");
+        FilePath = readerSettings.Path ??
+                   throw new ArgumentNullException(nameof(readerSettings.Path), "File path cannot be null.");
 
-        if (!File.Exists(FilePath))
-        {
-            throw new FileNotFoundException($"File not found: {FilePath}");
-        }
+        if (!File.Exists(FilePath)) throw new FileNotFoundException($"File not found: {FilePath}");
     }
 
     public IEnumerable<string> Read()
@@ -23,35 +21,27 @@ public class DocFileReader : IWordReader
         var words = new List<string>();
 
         // Создаем документ и загружаем файл
-        Document document = new Document();
+        var document = new Document();
         document.LoadFromFile(FilePath);
 
         // Перебираем все параграфы в документе
         foreach (Section section in document.Sections)
+        foreach (Paragraph paragraph in section.Paragraphs)
         {
-            foreach (Paragraph paragraph in section.Paragraphs)
-            {
-                string text = paragraph.Text.Trim();
+            var text = paragraph.Text.Trim();
 
-                // Пропускаем пустые параграфы
-                if (string.IsNullOrWhiteSpace(text))
-                    continue;
+            // Пропускаем пустые параграфы
+            if (string.IsNullOrWhiteSpace(text))
+                continue;
 
-                // Разделяем текст на слова
-                var lineWords = text.Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            // Разделяем текст на слова
+            var lineWords = text.Split(new[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-                // Проверяем, что в параграфе не более одного слова
-                if (lineWords.Length > 1)
-                {
-                    throw new Exception("The doc file must contain no more than one word per line!");
-                }
+            // Проверяем, что в параграфе не более одного слова
+            if (lineWords.Length > 1) throw new Exception("The doc file must contain no more than one word per line!");
 
-                // Добавляем слово в список, если оно не пустое
-                if (lineWords.Length == 1)
-                {
-                    words.Add(lineWords[0].Trim());
-                }
-            }
+            // Добавляем слово в список, если оно не пустое
+            if (lineWords.Length == 1) words.Add(lineWords[0].Trim());
         }
 
         return words;

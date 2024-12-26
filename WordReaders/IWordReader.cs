@@ -1,7 +1,6 @@
-﻿namespace WordReaders
+﻿namespace WordReaders;
+
+public interface IWordReader
 {
-    public interface IWordReader
-    {
-        public IEnumerable<string> Read();
-    }
+    public IEnumerable<string> Read();
 }

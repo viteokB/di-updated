@@ -1,57 +1,50 @@
 ﻿using WordHandlers.MyStem;
 using WordHandlers.MyStem.InfoClasses;
 
-namespace WordHandlers.Handlers
+namespace WordHandlers.Handlers;
+
+public class BoringWordHandler : IWordHandler, IDisposable
 {
-    public class BoringWordHandler : IWordHandler, IDisposable
+    private static readonly MyStemAnalyzer myStemAnalyzer = new();
+
+    //В принципе лего можно добавить настройку пользователем(мне не интересно)
+    private static readonly HashSet<PartOfSpeech> notBoringPartOfSpeeches =
+        NotBoringConfiguration.NotBoringPartOfSpeeches;
+
+    private bool disposed;
+
+    public void Dispose()
     {
-        private static readonly MyStemAnalyzer myStemAnalyzer = new MyStemAnalyzer();
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-        private bool disposed = false;
+    public IEnumerable<string> ApplyWordHandler(IEnumerable<string> words)
+    {
+        if (words == null) return Enumerable.Empty<string>();
 
-        //В принципе лего можно добавить настройку пользователем(мне не интересно)
-        private static HashSet<PartOfSpeech> notBoringPartOfSpeeches = NotBoringConfiguration.NotBoringPartOfSpeeches;
+        return myStemAnalyzer
+            .AnalyzeWords(words)
+            .Where(IsNotBoringWord)
+            .Select(wordInfo => wordInfo.Lemma);
+    }
 
-        private static bool IsNotBoringWord(WordInfo wordInfo)
-        {
-            return notBoringPartOfSpeeches.Contains(wordInfo.PartOfSpeech);
-        }
+    private static bool IsNotBoringWord(WordInfo wordInfo)
+    {
+        return notBoringPartOfSpeeches.Contains(wordInfo.PartOfSpeech);
+    }
 
-        public IEnumerable<string> ApplyWordHandler(IEnumerable<string> words)
-        {
-            if (words == null)
-            {
-                return Enumerable.Empty<string>(); // Обрабатываем null-аргумент
-            }
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+            if (disposing)
+                // Освобождаем управляемые ресурсы
+                myStemAnalyzer.Dispose();
+        disposed = true;
+    }
 
-            return myStemAnalyzer
-                .AnalyzeWords(words)
-                .Where(IsNotBoringWord)
-                .Select(wordInfo => wordInfo.Lemma);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    // Освобождаем управляемые ресурсы
-                    myStemAnalyzer.Dispose();
-                }
-            }
-            disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~BoringWordHandler()
-        {
-            Dispose(false);
-        }
+    ~BoringWordHandler()
+    {
+        Dispose(false);
     }
 }

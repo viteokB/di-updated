@@ -9,14 +9,14 @@
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0.5, 0" EndPoint="0.5, 1">
-                <GradientStop Color="#FF2A1C45" Offset="0"/>
-                <GradientStop Color="#FF262C5F" Offset="1"/>
+                <GradientStop Color="#FF2A1C45" Offset="0" />
+                <GradientStop Color="#FF262C5F" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="330" Width="13*" />
-            <ColumnDefinition Width="5*" MaxWidth="370" MinWidth="270"/>
+            <ColumnDefinition Width="5*" MaxWidth="370" MinWidth="270" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -57,14 +57,14 @@
             </MenuItem>
         </Menu>
 
-        <Border Grid.Row="1" Grid.Column="0" Margin="10" BorderBrush="White" 
+        <Border Grid.Row="1" Grid.Column="0" Margin="10" BorderBrush="White"
                 Style="{StaticResource SomeHeaderBorder}">
             <Image Source="{Binding MyImage}" Stretch="Uniform" />
         </Border>
 
         <Grid Grid.Row="1" Grid.Column="1" Margin="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <TabControl>
@@ -72,80 +72,81 @@
                     <Border Style="{StaticResource SomeHeaderBorder}" Background="#FF4D45DD">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" MaxHeight="50"/>
-                                <RowDefinition Height="*" MaxHeight="50"/>
-                                <RowDefinition Height="*" MaxHeight="50"/>
                                 <RowDefinition Height="*" MaxHeight="50" />
-                                <RowDefinition Height="*" MaxHeight="50"/>
-                                <RowDefinition Height="*" MaxHeight="50"/>
-                                <RowDefinition Height="*" MaxHeight="50"/>
-                                <RowDefinition Height="*" MaxHeight="50"/>
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50" />
+                                <RowDefinition Height="*" MaxHeight="50" />
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Image Width:" Margin="5"
-                                       Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <TextBox Grid.Row="0" Grid.Column="1" Name="ImageWidthTextBox" Margin="5"
-                                     Style="{StaticResource InputTextBox}"/>
+                                     Style="{StaticResource InputTextBox}" />
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Image Height:" Margin="5"
-                                           Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <TextBox Grid.Row="1" Grid.Column="1" Name="ImageHeightTextBox" Margin="5"
-                                     Style="{StaticResource InputTextBox}"/>
+                                     Style="{StaticResource InputTextBox}" />
 
                             <TextBlock Grid.Row="2" Grid.Column="0" Text="Background Color:" Margin="5"
-                                           Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <ComboBox Grid.Row="2" Grid.Column="1" Name="BackgroundColorComboBox" Margin="5"
-                                      Style="{StaticResource InputCombobox}"/>
+                                      Style="{StaticResource InputCombobox}" />
 
                             <TextBlock Grid.Row="3" Grid.Column="0" Text="Font Family:" Margin="5"
-                                           Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <ComboBox Grid.Row="3" Grid.Column="1" Name="FontFamilyComboBox" Margin="5"
-                                      Style="{StaticResource InputCombobox}"/>
+                                      Style="{StaticResource InputCombobox}" />
 
                             <TextBlock Grid.Row="4" Grid.Column="0" Text="Font Min Size:" Margin="5"
-                                           Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <TextBox Grid.Row="4" Grid.Column="1" Name="FontMinSizeTextBox" Margin="5"
-                                     Style="{StaticResource InputTextBox}"/>
+                                     Style="{StaticResource InputTextBox}" />
 
                             <TextBlock Grid.Row="5" Grid.Column="0" Text="Font Max Size:" Margin="5"
-                                           Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <TextBox Grid.Row="5" Grid.Column="1" Name="FontMaxSizeTextBox" Margin="5"
-                                     Style="{StaticResource InputTextBox}"/>
+                                     Style="{StaticResource InputTextBox}" />
 
                             <TextBlock Grid.Row="6" Grid.Column="0" Text="Word Color:" Margin="5"
-                                           Style="{StaticResource BaseText}"/>
+                                       Style="{StaticResource BaseText}" />
                             <ComboBox Grid.Row="6" Grid.Column="1" Name="WordColorComboBox" Margin="5"
-                                      Style="{StaticResource InputCombobox}"/>
+                                      Style="{StaticResource InputCombobox}" />
 
-                            <Button Grid.Row="7" Grid.Column="0" Content="Применить настройки" Name="CreateSettingsButton"
-                                        Margin="5" Grid.ColumnSpan="2" Template="{StaticResource RoundedButton}"/>
+                            <Button Grid.Row="7" Grid.Column="0" Content="Применить настройки"
+                                    Name="CreateSettingsButton"
+                                    Margin="5" Grid.ColumnSpan="2" Template="{StaticResource RoundedButton}" />
                         </Grid>
                     </Border>
                 </TabItem>
                 <TabItem Header="Алгоритм">
-                    <Border BorderBrush="Black" 
-                    BorderThickness="1" CornerRadius="10" Background="#FF4D45DD" >
+                    <Border BorderBrush="Black"
+                            BorderThickness="1" CornerRadius="10" Background="#FF4D45DD">
                         <StackPanel>
-                            <Button x:Name="ThresholdFilter" Margin="10" Template="{StaticResource RoundedButton}" 
+                            <Button x:Name="ThresholdFilter" Margin="10" Template="{StaticResource RoundedButton}"
                                     Height="50" Background="DarkRed">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{StaticResource BaseText}" Text="Круглое облако"/>
+                                    <TextBlock Style="{StaticResource BaseText}" Text="Круглое облако" />
                                 </StackPanel>
                             </Button>
                             <Button x:Name="GreyColors" FontSize="18" Margin="10" Background="BlueViolet"
                                     Template="{StaticResource RoundedButton}" Height="50">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{StaticResource BaseText}" Text="Квадратное облако"/>
+                                    <TextBlock Style="{StaticResource BaseText}" Text="Квадратное облако" />
                                 </StackPanel>
                             </Button>
 
                             <Button x:Name="Inversion" FontSize="18" Margin="10" Background="#0f125c"
                                     Template="{StaticResource RoundedButton}" Height="50">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{StaticResource BaseText}" Text="Треугольное облако"/>
+                                    <TextBlock Style="{StaticResource BaseText}" Text="Треугольное облако" />
                                 </StackPanel>
                             </Button>
                         </StackPanel>

@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using TagCloud.Interfaces;
 using TagCloud.RayMovers;
 using TagCloud.SpiralPointGenerators;
 using TagCloud.SpiralPointGenerators.enums;
 using TagCloud.Visualisers;
 
-namespace TagCloud.Factory
+namespace TagCloud.Factory;
+
+public class SpiralPointGeneratorFactory : ISpiralPointGeneratorFactory
 {
-    public class SpiralPointGeneratorFactory : ISpiralPointGeneratorFactory
+    public ISpiralPointGenerator CreateSpiralPointGenerator(ImageCreateSettings imageSettings)
     {
-        public ISpiralPointGenerator CreateSpiralPointGenerator(ImageCreateSettings imageSettings)
-            => imageSettings.pointGeneratorsType switch
+        return imageSettings.pointGeneratorsType switch
         {
             SpiralPointGeneratorsType.Circular => new CircularSpiralPointCreator(
                 new Point(imageSettings.ImageSize.Width / 2, imageSettings.ImageSize.Height / 2)),

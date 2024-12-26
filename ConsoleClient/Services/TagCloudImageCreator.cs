@@ -1,58 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BitmapSavers;
+﻿using BitmapSavers;
 using TagCloud;
 using TagCloud.Visualisers;
+using WordHandlers.Interfaces;
 using WordReaders.Factory;
 using WordReaders.Settings;
 
-namespace ConsoleClient.Services
+namespace ConsoleClient.Services;
+
+public class TagCloudImageCreator(
+    BitmapSaver bitmapSaver,
+    ImageSaveSettings imageSaveSettings,
+    ImageCreateSettings imageCreateSettings,
+    IWordReaderFactory wordReaderFactory,
+    WordReaderSettings wordReaderSettings,
+    IWordCounter wordsCounter,
+    TagCloudBitmapCreator tagCloudCreator)
 {
-    public class TagCloudImageCreator
+    public void CreateCloudImage()
     {
-        private readonly BitmapSaver bitmapSaver;
+        var wordsReader = wordReaderFactory.CreateWordReader(wordReaderSettings);
+        var fileWords = wordsReader.Read();
+        var dictCountWords = wordsCounter.CountWords(fileWords);
 
-        private readonly ImageSaveSettings imageSaveSettings;
-
-        private readonly ImageCreateSettings imageCreateSettings;
-
-        private readonly IWordReaderFactory wordReaderFactory;
-
-        private readonly WordReaderSettings readerSettings;
-
-        private readonly FilteredWordsCounter wordsCounter;
-
-        private readonly TagCloudCreator tagCloudCreator;
-
-        public TagCloudImageCreator(
-            BitmapSaver bitmapSaver,
-            ImageSaveSettings imageSaveSettings,
-            ImageCreateSettings imageCreateSettings,
-            IWordReaderFactory wordReaderFactory,
-            WordReaderSettings wordReaderSettings,
-            FilteredWordsCounter wordsCounter,
-            TagCloudCreator tagCloudCreator)
-        {
-            this.bitmapSaver = bitmapSaver;
-            this.imageSaveSettings = imageSaveSettings;
-            this.imageCreateSettings = imageCreateSettings;
-            this.wordReaderFactory = wordReaderFactory;
-            this.readerSettings = wordReaderSettings;
-            this.wordsCounter = wordsCounter;
-            this.tagCloudCreator = tagCloudCreator;
-        }
-
-        public void CreateCloudImage()
-        {
-            var wordsReader = wordReaderFactory.CreateWordReader(readerSettings);
-            var fileWords = wordsReader.Read();
-            var dictCountWords = wordsCounter.CountWords(fileWords);
-
-            var bitmap = tagCloudCreator.CreateTagCloudBitmap(dictCountWords, imageCreateSettings);
-            bitmapSaver.Save(imageSaveSettings, bitmap);
-        }
+        var bitmap = tagCloudCreator.CreateTagCloudBitmap(dictCountWords, imageCreateSettings);
+        bitmapSaver.Save(imageSaveSettings, bitmap);
     }
 }

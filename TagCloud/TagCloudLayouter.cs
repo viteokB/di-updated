@@ -5,7 +5,7 @@ namespace TagCloud;
 
 public class TagCloudLayouter : ICloudLayouter
 {
-    public readonly ISpiralPointGenerator PointGenerator;
+    private readonly ISpiralPointGenerator PointGenerator;
 
     public TagCloudLayouter(ISpiralPointGenerator rayMover)
     {

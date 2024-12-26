@@ -1,37 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
-namespace Tests.WordReadersTests.FileReaderTests
+namespace Tests.WordReadersTests.FileReaderTests;
+
+public abstract class BaseFileReaderTests
 {
-    public abstract class BaseFileReaderTests
+    protected const string FILESSAMPLE_DIR_PATH = @"WordReadersTests/FileReaderTests/FilesSample";
+
+    protected abstract string FilesDirectoryName { get; }
+
+    protected string GetFilesParentDir => FILESSAMPLE_DIR_PATH + @$"/{FilesDirectoryName}";
+
+    // Метод для генерации вывода слов
+    protected string CreateWordsOutput(IEnumerable<string> words)
     {
-        protected const string FILESSAMPLE_DIR_PATH = @"WordReadersTests/FileReaderTests/FilesSample";
+        var sb = new StringBuilder();
+        var isFirstWord = true;
 
-        protected abstract string FilesDirectoryName { get; }
-
-        protected string GetFilesParentDir => FILESSAMPLE_DIR_PATH + @$"/{FilesDirectoryName}";
-
-        // Метод для генерации вывода слов
-        protected string CreateWordsOutput(IEnumerable<string> words)
+        foreach (var word in words)
         {
-            var sb = new StringBuilder();
-            bool isFirstWord = true;
+            if (!isFirstWord) sb.AppendLine();
 
-            foreach (var word in words)
-            {
-                if (!isFirstWord)
-                {
-                    sb.AppendLine();
-                }
-
-                sb.Append($"word: '{word}'");
-                isFirstWord = false;
-            }
-
-            return sb.ToString();
+            sb.Append($"word: '{word}'");
+            isFirstWord = false;
         }
+
+        return sb.ToString();
     }
 }

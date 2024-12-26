@@ -7,10 +7,12 @@ public class BitmapSaver
 {
     public void Save(ImageSaveSettings saveSettings, Bitmap bitmap)
     {
-        var fullPath = saveSettings.Path;
+        var currentDir = Directory.GetCurrentDirectory();
+        var fullPath = currentDir + saveSettings.Path;
 
         if (bitmap == null) throw new ArgumentNullException(nameof(bitmap), "Bitmap cannot be null.");
-        if (string.IsNullOrEmpty(fullPath)) throw new ArgumentException("Path cannot be null or empty.", nameof(fullPath));
+        if (string.IsNullOrEmpty(fullPath))
+            throw new ArgumentException("Path cannot be null or empty.", nameof(fullPath));
 
         var extension = Path.GetExtension(fullPath).ToLower();
         var imageFormat = GetImageFormat(extension);

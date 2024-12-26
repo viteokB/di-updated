@@ -1,56 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
-namespace TestHelpers.TagCloudLayouterTests.Helpers.RectangleOnlyVisualiser
+namespace TestHelpers.TagCloudLayouterTests.Helpers.RectangleOnlyVisualiser;
+
+public class RectangleVisualiser : IRectangleVisualiser
 {
-    public class RectangleVisualiser : IRectangleVisualiser
+    private readonly Pen pen;
+
+    private bool isDisposed;
+
+    public RectangleVisualiser(Color penColor, int penWidth)
     {
-        private readonly Pen pen;
+        pen = new Pen(penColor, penWidth);
+    }
 
-        private bool isDisposed = false;
+    public void DrawRectangle(Bitmap bitmap, Rectangle rectangle)
+    {
+        if (bitmap == null)
+            throw new ArgumentNullException($"bitmap field cannot be null {bitmap}");
 
-        public RectangleVisualiser(Color penColor, int penWidth)
+        using (var graphics = Graphics.FromImage(bitmap))
         {
-            pen = new Pen(penColor, penWidth);
+            graphics.DrawRectangle(pen, rectangle);
         }
+    }
 
-        public void DrawRectangle(Bitmap bitmap, Rectangle rectangle)
-        {
-            if (bitmap == null)
-                throw new ArgumentNullException($"bitmap field cannot be null {bitmap}");
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 
-            using (var graphics = Graphics.FromImage(bitmap))
-            {
-                graphics.DrawRectangle(pen, rectangle);
-            }
-        }
+    ~RectangleVisualiser()
+    {
+        Dispose(false);
+    }
 
-        ~RectangleVisualiser()
-        {
-            Dispose(false);
-        }
+    private void Dispose(bool fromMethod)
+    {
+        if (isDisposed)
+            return;
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        if (fromMethod) pen.Dispose();
 
-        private void Dispose(bool fromMethod)
-        {
-            if (isDisposed)
-                return;
-
-            if (fromMethod)
-            {
-                pen.Dispose();
-            }
-
-            isDisposed = true;
-        }
+        isDisposed = true;
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace WordHandlers.Handlers
+﻿namespace WordHandlers.Handlers;
+
+public class LowercaseWordHandler : IWordHandler
 {
-    public class LowercaseWordHandler : IWordHandler
+    public IEnumerable<string> ApplyWordHandler(IEnumerable<string> words)
     {
-        public IEnumerable<string> ApplyWordHandler(IEnumerable<string> words)
-        {
-            return words.Select(w => w.ToLower());
-        }
+        return words.Select(w => w.ToLower());
     }
 }

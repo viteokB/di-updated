@@ -7,28 +7,28 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Border x:Name="Perimeter" BorderThickness="1">
-                            <Grid VerticalAlignment="Stretch" 
+                            <Grid VerticalAlignment="Stretch"
                                   HorizontalAlignment="Stretch"
                                   Background="{TemplateBinding Background}">
-                                <TextBlock Text="{TemplateBinding Property=Content}" 
-                                           VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{TemplateBinding Property=Content}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter TargetName="Perimeter"  Property="BorderBrush" Value="#FF4AB7FF"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter TargetName="Perimeter" Property="BorderBrush" Value="#FF4AB7FF" />
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background" Value="#22202f"/>
-                                <Setter TargetName="Perimeter"  Property="BorderBrush" Value="#FFC511A0"/>
+                                <Setter Property="Background" Value="#22202f" />
+                                <Setter TargetName="Perimeter" Property="BorderBrush" Value="#FFC511A0" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style.Setters>
     </Style>
 </ResourceDictionary>

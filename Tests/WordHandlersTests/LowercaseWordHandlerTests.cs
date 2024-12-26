@@ -1,39 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Tests.WordHandlersTests.TestDatas;
 using WordHandlers.Handlers;
 
-namespace Tests.WordHandlersTests
+namespace Tests.WordHandlersTests;
+
+[TestFixture]
+public class LowercaseWordHandlerTests
 {
-    [TestFixture]
-    public class LowercaseWordHandlerTests
+    [OneTimeSetUp]
+    protected void SetUp()
     {
-        private LowercaseWordHandler lowercaseWordHandler;
+        lowercaseWordHandler = new LowercaseWordHandler();
+    }
 
-        [OneTimeSetUp]
-        protected void SetUp()
-        {
-            lowercaseWordHandler = new LowercaseWordHandler();
-        }
+    private LowercaseWordHandler lowercaseWordHandler;
 
-        [TestCaseSource(typeof(LowercaseTestData), nameof(LowercaseTestData.OneWordCases))]
-        public void LowercaseWordHandler_ApplyHandler_ShouldLowerOneWord(List<string> given, List<string> expected)
-        {
-            var actual = lowercaseWordHandler.ApplyWordHandler(given);
+    [TestCaseSource(typeof(LowercaseTestData), nameof(LowercaseTestData.OneWordCases))]
+    public void LowercaseWordHandler_ApplyHandler_ShouldLowerOneWord(List<string> given, List<string> expected)
+    {
+        var actual = lowercaseWordHandler.ApplyWordHandler(given);
 
-            actual.Should().BeEquivalentTo(expected);
-        }
+        actual.Should().BeEquivalentTo(expected);
+    }
 
-        [TestCaseSource(typeof(LowercaseTestData), nameof(LowercaseTestData.FewWordsCases))]
-        public void LowercaseWordHandler_ApplyHandler_ShouldLowerFewWords(List<string> given, List<string> expected)
-        {
-            var actual = lowercaseWordHandler.ApplyWordHandler(given);
+    [TestCaseSource(typeof(LowercaseTestData), nameof(LowercaseTestData.FewWordsCases))]
+    public void LowercaseWordHandler_ApplyHandler_ShouldLowerFewWords(List<string> given, List<string> expected)
+    {
+        var actual = lowercaseWordHandler.ApplyWordHandler(given);
 
-            actual.Should().BeEquivalentTo(expected);
-        }
+        actual.Should().BeEquivalentTo(expected);
     }
 }

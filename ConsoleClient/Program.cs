@@ -1,25 +1,30 @@
 ﻿using Autofac;
-using CommandLine;
-using System.IO;
 using BitmapSavers;
+using CommandLine;
 using ConsoleClient.Services;
+using TagCloud;
 using TagCloud.Factory;
 using TagCloud.Interfaces;
-using TagCloud.Visualisers;
-using TagCloud;
-using TagCloud.RayMovers;
-using TagCloud.SpiralPointGenerators;
-using WordHandlers.Handlers;
 using WordHandlers;
+using WordHandlers.Handlers;
+using WordHandlers.Interfaces;
+using WordHandlers.WordCounters;
+using WordReaders;
 using WordReaders.Factory;
+using WordReaders.Readers;
 
-namespace ConsoleClient
+namespace ConsoleClient;
+
+internal class Program
 {
-    internal class Program
+    private static void Main(string[] args)
     {
-        static void Main(string[] args)
+        var result = Parser.Default.ParseArguments<CommandLineOptions>(args);
+        var options = result.Value;
+
+        result.WithParsed(options =>
         {
-            var options = Parser.Default.ParseArguments<CommandLineOptions>(args).Value;
+            options.DisplayOptions();
             var settingsProvider = new SettingsProvider(options);
             var settings = settingsProvider.GetSettingsStorage();
             var builder = new ContainerBuilder();
@@ -28,70 +33,81 @@ namespace ConsoleClient
             RegisterTagCloudClasses(builder);
             RegisterWordHandlersClasses(builder);
             RegisterWordReadersClasses(builder);
-            RegisterFromInstance(builder, settings);
+            RegisterUsingSettings(builder, settings);
             RegisterConsoleClientServices(builder);
 
             var container = builder.Build();
-            
-            var tagCloudImageCreator = container.Resolve<TagCloudImageCreator>();
-            tagCloudImageCreator.CreateCloudImage();
-        }
 
-        static void RegisterConsoleClientServices(ContainerBuilder builder)
-        {
-            builder.RegisterType<FileWordReader>().AsSelf().SingleInstance();
-            builder.Register<FilteredWordsCounter>(context =>
+            try
             {
-                var wordHandlers = context.Resolve<IEnumerable<IWordHandler>>();
-                var list = new List<Func<IEnumerable<string>, IEnumerable<string>>>();
-                foreach (var wordHandler in wordHandlers)
-                {
-                    list.Add(wordHandler.ApplyWordHandler);
-                }
-                return new FilteredWordsCounter(list);
-            });
-            builder.RegisterType<TagCloudImageCreator>().AsSelf().SingleInstance();
-        }
-
-        static void RegisterFromInstance(ContainerBuilder builder, SettingsStorage settings)
+                var tagCloudImageCreator = container.Resolve<TagCloudImageCreator>();
+                tagCloudImageCreator.CreateCloudImage();
+                Console.WriteLine("Облако тегов успешно создано.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Произошла ошибка при создании облака тегов: {ex.Message}");
+            }
+        })
+        .WithNotParsed(errors =>
         {
-            builder.RegisterInstance(settings.ImageSave);
-            builder.RegisterInstance(settings.ImageCreate);
-            builder.RegisterInstance(settings.ReaderSettings);
+            Console.WriteLine("Ошибка при парсинге аргументов:");
+            foreach (var error in errors)
+            {
+                Console.WriteLine($"- {error}");
+            }
+        });
+    }
 
-            var spiralFactory = new SpiralPointGeneratorFactory();
+    private static void RegisterConsoleClientServices(ContainerBuilder builder)
+    {
+        builder.RegisterType<TagCloudImageCreator>().AsSelf().SingleInstance();
+    }
 
-            builder.RegisterInstance(spiralFactory.CreateSpiralPointGenerator(settings.ImageCreate));
-        }
+    private static void RegisterUsingSettings(ContainerBuilder builder, SettingsStorage settings)
+    {
+        builder.RegisterInstance(settings.ImageSave);
+        builder.RegisterInstance(settings.ImageCreate);
+        builder.RegisterInstance(settings.ReaderSettings);
 
-        static void RegisterBitmapSaverClasses(ContainerBuilder builder)
+        var spiralFactory = new SpiralPointGeneratorFactory();
+        builder.RegisterInstance(spiralFactory.CreateSpiralPointGenerator(settings.ImageCreate));
+    }
+
+    private static void RegisterBitmapSaverClasses(ContainerBuilder builder)
+    {
+        //BitmapSaver
+        builder.RegisterType<BitmapSaver>().AsSelf().SingleInstance();
+    }
+
+    private static void RegisterTagCloudClasses(ContainerBuilder builder)
+    {
+        builder.RegisterType<SpiralPointGeneratorFactory>()
+            .As<ISpiralPointGeneratorFactory>().SingleInstance();
+        builder.RegisterType<TagCloudLayouter>().As<ICloudLayouter>();
+        builder.RegisterType<TagCloudBitmapCreator>().AsSelf().SingleInstance();
+
+        //SpiralPointGenerators в RegisterUsingSettings
+    }
+
+    private static void RegisterWordHandlersClasses(ContainerBuilder builder)
+    {
+        builder.RegisterType<LowercaseWordHandler>().As<IWordHandler>();
+        builder.RegisterType<BoringWordHandler>().As<IWordHandler>();
+
+        builder.Register<FilteredWordsCounter>(context =>
         {
-            //BitmapSaver
-            builder.RegisterType<BitmapSaver>().AsSelf().SingleInstance();
-        }
+            var wordHandlers = context.Resolve<IEnumerable<IWordHandler>>();
+            var list = new List<Func<IEnumerable<string>, IEnumerable<string>>>();
+            foreach (var wordHandler in wordHandlers) list.Add(wordHandler.ApplyWordHandler);
+            return new FilteredWordsCounter(list);
+        }).As<IWordCounter>();
+    }
 
-        static void RegisterTagCloudClasses(ContainerBuilder builder)
-        {
-            //TagCloud
-            builder.RegisterType<SpiralPointGeneratorFactory>()
-                .As<ISpiralPointGeneratorFactory>().SingleInstance();
-            builder.RegisterType<TagCloudLayouter>().As<ICloudLayouter>();
-            builder.RegisterType<TagCloudCreator>().AsSelf().SingleInstance();
-
-            //SpiralPointGenerators в RegisterFromInstance
-        }
-
-        static void RegisterWordHandlersClasses(ContainerBuilder builder)
-        {
-            //WordHandlers
-            builder.RegisterType<LowercaseWordHandler>().As<IWordHandler>();
-            builder.RegisterType<BoringWordHandler>().As<IWordHandler>();
-        }
-
-        static void RegisterWordReadersClasses(ContainerBuilder builder)
-        {
-            //WordReaders
-            builder.RegisterType<WordReaderFactory>().As<IWordReaderFactory>().SingleInstance();
-        }
+    private static void RegisterWordReadersClasses(ContainerBuilder builder)
+    {
+        //WordReaders
+        builder.RegisterType<WordReaderFactory>().As<IWordReaderFactory>().SingleInstance();
+        builder.RegisterType<MultiFormatWordReader>().As<IWordReader>();
     }
 }

@@ -1,5 +1,3 @@
-﻿using System.Drawing;
-
-namespace BitmapSavers;
+﻿namespace BitmapSavers;
 
 public record ImageSaveSettings(string Path);
