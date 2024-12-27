@@ -3,23 +3,23 @@ using TagCloud;
 using TagCloud.Visualisers;
 using WordHandlers.Interfaces;
 using WordReaders.Factory;
+using WordReaders.Interfaces;
 using WordReaders.Settings;
 
 namespace ConsoleClient.Services;
 
 public class TagCloudImageCreator(
     BitmapSaver bitmapSaver,
-    ImageSaveSettings imageSaveSettings,
-    ImageCreateSettings imageCreateSettings,
-    IWordReaderFactory wordReaderFactory,
-    WordReaderSettings wordReaderSettings,
+    IMultiFormatReader multiFormatReader,
     IWordCounter wordsCounter,
     TagCloudBitmapCreator tagCloudCreator)
 {
-    public void CreateCloudImage()
+    public void CreateCloudImage(
+        ImageSaveSettings imageSaveSettings,
+        ImageCreateSettings imageCreateSettings,
+        WordReaderSettings wordReaderSettings)
     {
-        var wordsReader = wordReaderFactory.CreateWordReader(wordReaderSettings);
-        var fileWords = wordsReader.Read();
+        var fileWords = multiFormatReader.Read(wordReaderSettings); ;
         var dictCountWords = wordsCounter.CountWords(fileWords);
 
         var bitmap = tagCloudCreator.CreateTagCloudBitmap(dictCountWords, imageCreateSettings);

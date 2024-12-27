@@ -5,7 +5,7 @@ namespace TagCloud.Visualisers;
 
 public class BitmapCreator : IBitmapCreator
 {
-    public static Bitmap GenerateImage(IEnumerable<TagCloudWord> cloudWords, ImageCreateSettings settings)
+    public Bitmap GenerateImage(IEnumerable<TagCloudWord> cloudWords, ImageCreateSettings settings)
     {
         var bitmap = new Bitmap(settings.ImageSize.Width, settings.ImageSize.Height);
 

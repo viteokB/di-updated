@@ -86,9 +86,10 @@ public class MyStemAnalyzer : IDisposable
 
         var partOfSpeechStr = partSpeechBuilder.ToString();
 
-        if (Enum.TryParse(partOfSpeechStr, out PartOfSpeech partOfSpeech)) return partOfSpeech;
+        if (Enum.TryParse(partOfSpeechStr, out PartOfSpeech partOfSpeech))
+            return partOfSpeech;
 
-        return default;
+        return PartOfSpeech.UNKNOWN;
     }
 
     protected virtual void Dispose(bool disposing)

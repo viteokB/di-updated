@@ -8,9 +8,12 @@ public class TagCloudBitmapCreator
 {
     private readonly ICloudLayouter layouter;
 
-    public TagCloudBitmapCreator(ICloudLayouter layouter)
+    private readonly IBitmapCreator bitmapCreator;
+
+    public TagCloudBitmapCreator(ICloudLayouter layouter, IBitmapCreator creator)
     {
         this.layouter = layouter;
+        this.bitmapCreator = creator;
     }
 
     public Bitmap CreateTagCloudBitmap(Dictionary<string, int> wordFreqDictionary, ImageCreateSettings settings)
@@ -34,7 +37,7 @@ public class TagCloudBitmapCreator
             cloudWords.Add(new TagCloudWord(rectangle, word, fontSize));
         }
 
-        return BitmapCreator.GenerateImage(cloudWords, settings);
+        return bitmapCreator.GenerateImage(cloudWords, settings);
     }
 
     private int TransformFreqToSize(int minFontSize, int maxFontSize, int freq, int maxFreq)
